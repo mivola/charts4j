@@ -74,6 +74,23 @@ public final class ParameterManager {
     public void init(final String url) {
         this.url = url;
         parameterMap.clear();
+        parameterMap.put(AxisLabelPositionsParameter.class, new AxisLabelPositionsParameter());
+        parameterMap.put(AxisLabelsParameter.class, new AxisLabelsParameter());
+        parameterMap.put(AxisRangesParameter.class, new AxisRangesParameter());
+        parameterMap.put(AxisStylesParameter.class, new AxisStylesParameter());
+        parameterMap.put(AxisTypesParameter.class, new AxisTypesParameter());
+        parameterMap.put(BarChartZeroLinesParameter.class, new BarChartZeroLinesParameter());
+        parameterMap.put(ChartFillsParameter.class, new ChartFillsParameter());
+        parameterMap.put(ChartMarkersParameter.class, new ChartMarkersParameter());
+        parameterMap.put(ColorsParameter.class, new ColorsParameter());
+        parameterMap.put(DataLegendsParameter.class, new DataLegendsParameter());
+        parameterMap.put(DataParameter.class, new DataParameter());
+        parameterMap.put(GeoCodesParameter.class, new GeoCodesParameter());
+        parameterMap.put(LineChartLineStylesParameter.class, new LineChartLineStylesParameter());
+        parameterMap.put(MarginsParameter.class, new MarginsParameter());
+        parameterMap.put(PieChartAndGoogleOMeterLegendParameter.class, new PieChartAndGoogleOMeterLegendParameter());
+        parameterMap.put(TickMarkLengthParameter.class, new TickMarkLengthParameter());
+
     }
 
     /**
@@ -587,20 +604,11 @@ public final class ParameterManager {
      * @throws ParameterInstantiationException
      *             if the parameter could not be instantiated
      */
+    @SuppressWarnings("unchecked")
     private <T extends Parameter> T getParameter(final Class<T> clazz) throws ParameterInstantiationException {
-        // Should always be safe.
-        @SuppressWarnings("unchecked")
+        // GWT doesnt support .newInstance(), therefore we're keeping the
+        // instances in a map
         T p = (T) parameterMap.get(clazz);
-        if (p == null) {
-            try {
-                p = clazz.newInstance();
-            } catch (InstantiationException e) {
-                throw new ParameterInstantiationException("Internal error: Could not instatiate " + clazz.getName(), e);
-            } catch (IllegalAccessException e) {
-                throw new ParameterInstantiationException("Internal error: Could not instatiate " + clazz.getName(), e);
-            }
-            parameterMap.put(clazz, p);
-        }
         return p;
     }
 

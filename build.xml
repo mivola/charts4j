@@ -50,6 +50,7 @@
 		<mkdir dir="${build.dir}/dist/${app.name}-${version}/lib" />
 		<jar jarfile="${build.dir}/dist/${app.name}-${version}/lib/${app.name}-${version}.jar">
 			<fileset dir="${build.dir}/classes" />
+			<fileset dir="${src.dir}" />
 		</jar>
 	</target>
 
